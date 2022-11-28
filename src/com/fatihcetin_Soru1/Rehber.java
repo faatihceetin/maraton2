@@ -1,16 +1,27 @@
-package com.fatihcetin_Soru1;
+
 
 public class Rehber {
 
 		private String isim;
 	    private String soyIsim;
-	    private String telefonNumarası;
+	    private String sehir;
+	    public String getSehir() {
+			return sehir;
+		}
+
+
+		public void setSehir(String sehir) {
+			this.sehir = sehir;
+		}
+
+
+		private String telefonNumarası;
 	    
 	    
-		public Rehber(String isim, String soyIsim, String telefonNumarası, String string) {
-			super();
+		public Rehber(String isim, String soyIsim, String sehir, String telefonNumarası) {
 			this.isim = isim;
 			this.soyIsim = soyIsim;
+			this.sehir = sehir;
 			this.telefonNumarası = telefonNumarası;
 		}
 
@@ -47,9 +58,11 @@ public class Rehber {
 
 		@Override
 		public String toString() {
-			return "Rehber [isim=" + isim + ", soyIsim=" + soyIsim + ", telefonNumarası=" + telefonNumarası + "]";
+			return "Rehber [isim=" + isim + ", soyIsim=" + soyIsim + ", sehir=" + sehir + ", telefonNumarası="
+					+ telefonNumarası + "]";
 		}
-	    
+
+
 	    
 	    
 	    

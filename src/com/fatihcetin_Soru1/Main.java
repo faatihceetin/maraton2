@@ -1,4 +1,4 @@
-package com.fatihcetin_Soru1;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,25 +13,24 @@ public class Main {
 
 	
 	
-	List<Rehber> rehber = new ArrayList<>();
+	static List<Rehber> rehberList = new ArrayList<>();
 	FileWriter fileWriter = null;
-	File file = new File("C:\\Users\\Fatih\\Desktop\\Eclips\\Dersler\\Teori\\Maraton2\\src\\com\\fatihcetin_Soru1\\Rehber.txt");
-	Scanner in = new Scanner(System.in);
+	static File file = new File("C:\\Users\\Fatih\\Desktop\\Eclips\\Dersler\\Teori\\Maraton2\\src\\com\\fatihcetin_Soru1\\Rehber.txt");
+	static Scanner in = new Scanner(System.in);
 	
 	
 
 	
-	public void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 		 
 		
-		try {
-			dosyadanKisileriOku();
-		} catch (Exception e) {
-			System.out.println("I/O Exception");
-		}
+		dosyadanKisileriOku();
+		
+		kisiBul();
+
 		
 	}
-	 private void kisiBul() throws IOException {
+	 private static void kisiBul() throws IOException {
 	        System.out.println("1. İsmi ile bul");
 	        System.out.println("2. Soyismi ile bul");
 
@@ -53,12 +52,12 @@ public class Main {
 	        
 	    }
 
-	    private void soyIsimIleBul() {
+	    private static void soyIsimIleBul() {
 	        System.out.print("Lütfen Soyisim giriniz: ");
 	        String soyIsimIleBul = in.nextLine();
 	        int eslesme = 0;
-	        for(Rehber rehber : rehber) {           
-	            if(rehber.getSoyIsim().equals(soyIsimIleBul)) {
+	        for(Rehber rehber : rehberList) {           
+	            if(rehber.getSoyIsim().toLowerCase().equals(soyIsimIleBul.toLowerCase())) {
 	                System.out.println(rehber);
 	                eslesme++;
 	            }
@@ -68,12 +67,12 @@ public class Main {
 	        }
 	    }
 
-	    private void isimIleBul() {
+	    private static void isimIleBul() {
 	        System.out.print("Enter name: ");
 	        String nameToFind = in.nextLine();
 	        int eslesme = 0;
-	        for(Rehber rehber : rehber) {       
-	            if(rehber.getIsim().equals(nameToFind)) {
+	        for(Rehber rehber : rehberList) {       
+	            if(rehber.getIsim().toLowerCase().equals(nameToFind.toLowerCase())) {
 	                System.out.println(rehber);
 	                eslesme++;
 	            }
@@ -84,20 +83,20 @@ public class Main {
 	    }
 
 
-		  private boolean dosyadanKisileriOku() throws IOException {
+		  private static void dosyadanKisileriOku() throws IOException {
 		        try(BufferedReader okuyucu = new BufferedReader(new FileReader(file))) {
-		            String isim = null;
-		            while((isim = okuyucu.readLine()) != null) {
-		                Rehber rehber = new Rehber(isim, okuyucu.readLine(), okuyucu.readLine(), okuyucu.readLine());
-		                ((List<Rehber>) rehber).add(rehber);        
-		                okuyucu.readLine();                                 
+		        	String st;
+		            while((st = okuyucu.readLine()) != null) {
+		            	String[] parts = st.split(";");
+		            	String[] splitedNameSurname = parts[0].split(" ");
+		            
+		            	Rehber rehber = new Rehber(splitedNameSurname[0].trim(), splitedNameSurname[1].trim(), parts[1].trim(), parts[2].trim());
+		            	rehberList.add(rehber);
+
 		            }
-		            return true;
 		        }
 		        catch ( IOException e) {
-		            System.out.println(e);
-		        }
-		        return false;
+		            e.printStackTrace();		        }
 		    }
 
 	
